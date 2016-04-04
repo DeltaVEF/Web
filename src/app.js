@@ -2,7 +2,7 @@ export class App {
   configureRouter(config, router) {
     config.title = 'VEF';
     config.map([
-      { route: ['','welcome'], name: 'welcome', moduleId: './welcome', nav: true, title:'Welcome' }
+      { route: ['','record'], name: 'record', moduleId: './record', nav: true, title:'Record' }
     ]);
 
     this.router = router;

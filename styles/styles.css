@@ -32,3 +32,6 @@ html, body {
 .input-large:focus {
 	border-bottom-color: silver;
 }
+.error-container {
+	display: none;
+}

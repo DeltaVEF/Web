@@ -21,7 +21,8 @@ html, body {
 	/* fix issue showing up too low */
 	line-height: 1;
 }
-.input-large {
+.input-large,
+.form-control.input-large {
 	font-size: 32px;
 	height: 50px;
 	box-shadow: none;
@@ -29,7 +30,8 @@ html, body {
 	border-radius: 0;
 	border-bottom: 2px solid #eee;
 }
-.input-large:focus {
+.input-large:focus,
+.form-control.input-large:focus {
 	border-bottom-color: silver;
 }
 .error-message-container {
@@ -44,7 +46,6 @@ html, body {
 	display: block;
 	animation: fadeIn 300ms;
 }
-
 .fade-error-message-remove {
 	display: block;
 	animation: fadeOut 1s;

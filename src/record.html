@@ -1,35 +1,33 @@
 <template>
-	<div class="container-fluid content">
-		<div class="col-md-12">
-			<div class="form-group">
-				<input id="roomName" class="form-control input-large" type="text" placeholder="Room name" />
+	<div class="col-md-12">
+		<div class="form-group">
+			<input class="form-control input-large" type="text" placeholder="Room name" value.bind="roomName & debounce:2000" />
+		</div>
+	</div>
+	<div class="col-md-8">
+		<video class="live-preview">
+			Your browser does not support the video preview.
+		</video>
+		<button type="button" class="btn btn-success btn-block btn-lg start-recording">Start recording <!--4:04 Stop recording--></button>
+	</div>
+	<div class="col-md-4">
+		<div class="form-group">
+			<label for="roomCode">Room code</label>
+			<div class="input-group">
+				<input type="text" class="form-control" value.one-way="roomCode" disabled />
+				<span class="input-group-btn">
+					<button class="btn btn-default copy-room-code" type="button">
+						<span class="glyphicon glyphicon-copy"></span>
+					</button>
+				</span>
 			</div>
 		</div>
-		<div class="col-md-8">
-			<video class="live-preview">
-				Your browser does not support the video preview.
-			</video>
-			<button type="button" class="btn btn-success btn-block btn-lg start-recording">Start recording <!--4:04 Stop recording--></button>
+		<div class="form-group">
+			<label for="roomDescription">Description</label>
+			<input class="form-control" type="text" placeholder="Description" value.bind="roomDescription & debounce:2000" />
 		</div>
-		<div class="col-md-4">
-			<div class="form-group">
-				<label for="roomCode">Room code</label>
-				<div class="input-group">
-					<input id="roomCode" type="text" class="form-control" value="X693S8" disabled />
-					<span class="input-group-btn">
-						<button class="btn btn-default copy-room-code" type="button">
-							<span class="glyphicon glyphicon-copy"></span>
-						</button>
-					</span>
-				</div>
-			</div>
-			<div class="form-group">
-				<label for="roomDescription">Description</label>
-				<input id="roomDescription" class="form-control" type="text" placeholder="Description" />
-			</div>
-			<div class="form-group">
-				More details and options
-			</div>
+		<div class="form-group">
+			More details and options
 		</div>
 	</div>
 </template>

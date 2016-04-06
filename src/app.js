@@ -27,12 +27,16 @@ export class App {
   }
 
 	attached() {
-		//animate the error message
+		//change error message on update
 		this.eventAggregator.subscribe("Error Message", (message) => {
 			this.errorMessage = message;
-				this.animator.addClass(this.errorMessageContainer, 'fade-error-message').then(() => {
-						setTimeout(() => this.animator.removeClass(this.errorMessageContainer, 'fade-error-message'), 3000);
-				});
+		});
+	}
+
+	errorMessageChanged(errorMessage) {
+		//show the message (animate it)
+		this.animator.addClass(this.errorMessageContainer, 'fade-error-message').then(() => {
+				setTimeout(() => this.animator.removeClass(this.errorMessageContainer, 'fade-error-message'), 3000);
 		});
 	}
 }

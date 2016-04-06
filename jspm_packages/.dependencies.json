@@ -182,5 +182,5 @@
     "aurelia-task-queue": "npm:aurelia-task-queue@^1.0.0-beta.1.1.0",
     "core-js": "npm:core-js@^2.0.3"
   },
-  "npm:jquery@2.2.2": {}
+  "npm:jquery@2.2.3": {}
 }

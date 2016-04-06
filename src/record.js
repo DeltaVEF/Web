@@ -1,11 +1,16 @@
 import {inject} from "aurelia-framework";
 import {HttpClient, json} from "aurelia-fetch-client";
 import {Router} from "aurelia-router";
+import {FlashMessenger} from "models/flash-messenger";
 import "fetch";
 
-@inject(HttpClient, Router)
+@inject(HttpClient, Router, FlashMessenger)
 export class Record {
-  constructor(http, router) {
+	http;
+	navigation;
+	flashMessenger;
+
+  constructor(http, router, flashMessenger) {
 		http.configure(config => {
       config
         .useStandardConfiguration()
@@ -14,6 +19,7 @@ export class Record {
 
 		this.http = http;
 		this.navigation = router;
+		this.flashMessenger = flashMessenger;
   }
 
 	activate() {
@@ -25,21 +31,12 @@ export class Record {
 				this.room = response.json();
 			},
 			error => {
-				this.error = "Could not create room!";
+				this.flashMessenger.addMessage("Could not create room!");
+				this.navigation.navigate("home");
 			}
 		);
 	}
 
 	attached() {
-		if (this.error) {
-			this.showError(this.error);
-		};
-
-		this.navigation.navigate("home");
-	}
-
-	showError(message) {
-		$(".error-message").text(message);
-		$(".error-container").fadeIn(200).delay(5000).fadeOut(1000);
 	}
 }

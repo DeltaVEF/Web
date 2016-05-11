@@ -11,6 +11,7 @@ export class Record {
 	flashMessenger;
 	@bindable roomName;
 	@bindable roomDescription;
+	roomId;
 	roomCode;
 	startStopButton;
 
@@ -27,25 +28,37 @@ export class Record {
   }
 
 	activate() {
-		this.http.fetch("room/create", {
+		this.http.fetch("/rooms", {
 			method: "post",
-			body: json() //api-key for login
+			body: json({
+				//todo: api-key for login or something
+			})
 		}).then(
 			response => {
-				this.room = response.json();
-				console.log(this.room)
+				var responseObject = response.json();
+				if (response.status != 200 || responseObject.error) {
+					this.roomCreationFailed();
+					return;
+				}
+
+				this.roomId = responseObject.data._id;
 			},
 			error => {
-				this.flashMessenger.addMessage("Could not create room!");
-				this.roomCode = "OSDJFOIJSDFOI";
-
-				//todo: enable this when api works
-				//this.navigation.navigate("home");
+				this.roomCreationFailed();
 			}
 		);
 	}
 
 	attached() {
+	}
+
+	roomCreationFailed() {
+		this.flashMessenger.addMessage("Could not create room!");
+		this.navigation.navigate("home");
+	}
+
+	roomUpdateFailed() {
+		this.flashMessenger.addMessage("Room update failed!");
 	}
 
 	roomNameChanged(roomName) {
@@ -57,13 +70,26 @@ export class Record {
 	}
 
 	updateRoomDetails() {
-		//post request goes here
-		console.log(this.roomName + " - " + this.roomDescription);
+		this.http.fetch("/rooms/" + this.roomId, {
+			method: "put",
+			body: json({
+				//todo: api-key for login or something
+				title: this.roomName,
+				description: this.roomDescription,
+			})
+		}).then(
+			response => {
+				if (response.status != 200 || response.json().error) {
+					this.roomUpdateFailed();
+				}
+			},
+			error => {
+				this.roomUpdateFailed();
+			}
+		);
 	}
 
 	startStop() {
-		console.log(this.startStopButton.__proto__);
-
 		if (this.startStopButton.classList.contains("start-recording")) {
 			//start recording
 			//post request goes here

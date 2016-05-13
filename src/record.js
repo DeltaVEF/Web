@@ -15,6 +15,13 @@ export class Record {
 	roomCode;
 	startStopButton;
 
+	//mediaDevices does not seem to be supported yet, at least in the chrome I use
+	getUserMedia = navigator.getUserMedia ||
+		navigator.webkitGetUserMedia ||
+		navigator.mozGetUserMedia ||
+		navigator.msGetUserMedia;
+
+
 	constructor(http, router, flashMessenger) {
 		http.configure(config => {
 			config
@@ -28,6 +35,12 @@ export class Record {
 	}
 
 	activate() {
+		//verify browser compatibility
+		if (!this.getUserMedia) {
+			this.flashMessenger.addMessage("Your browser does not support video recording. Please consider updating it to the latest version.");
+			this.navigation.navigate("home");
+		}
+
 		this.http.fetch("/rooms", {
 			method: "post",
 			body: json({
@@ -41,7 +54,8 @@ export class Record {
 					return;
 				}
 
-				this.roomId = responseObject.data._id;
+				this.roomId = responseObject.data.id;
+				this.roomCode = responseObject.data.code;
 			},
 			error => {
 				this.roomCreationFailed();
@@ -50,6 +64,14 @@ export class Record {
 	}
 
 	attached() {
+		//this will be the navigator in the call, so set parent to refer to this
+		var parent = this;
+		this.getUserMedia.call(navigator, {video: true, audio: true}, function(stream) {
+			parent.livePreview.src = window.URL.createObjectURL(stream);
+		}, function(error) {
+			this.flashMessenger.addMessage("Could not access the camera.");
+			this.navigation.navigate("home");
+		});
 	}
 
 	roomCreationFailed() {

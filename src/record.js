@@ -15,17 +15,17 @@ export class Record {
 	roomCode;
 	startStopButton;
 
-  constructor(http, router, flashMessenger) {
+	constructor(http, router, flashMessenger) {
 		http.configure(config => {
-      config
-        .useStandardConfiguration()
-        .withBaseUrl("");
-    });
+			config
+				.useStandardConfiguration()
+				.withBaseUrl("");
+		});
 
 		this.http = http;
 		this.navigation = router;
 		this.flashMessenger = flashMessenger;
-  }
+	}
 
 	activate() {
 		this.http.fetch("/rooms", {

@@ -16,15 +16,15 @@ export class App {
 		this.flashMessenger = flashMessenger;
 	}
 
-  configureRouter(config, router) {
-    config.title = "VEF";
-    config.map([
+	configureRouter(config, router) {
+		config.title = "VEF";
+		config.map([
 			{ route: ["", "home"], name: "home", moduleId: "./home", nav: true, title: "Home" },
-      { route: ["record"], name: "record", moduleId: "./record", nav: true, title: "Record" }
-    ]);
+			{ route: ["record"], name: "record", moduleId: "./record", nav: true, title: "Record" }
+		]);
 
-    this.router = router;
-  }
+		this.router = router;
+	}
 
 	attached() {
 		//change error message on update

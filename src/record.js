@@ -3,6 +3,7 @@ import {HttpClient, json} from "aurelia-fetch-client";
 import {Router} from "aurelia-router";
 import {FlashMessenger} from "models/flash-messenger";
 import "fetch";
+import {io} from "socket.io-client";
 
 @inject(HttpClient, Router, FlashMessenger)
 export class Record {

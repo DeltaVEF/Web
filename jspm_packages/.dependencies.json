@@ -702,5 +702,6 @@
     "systemjs-json": "github:systemjs/plugin-json@^0.1.0",
     "fs": "github:jspm/nodelibs-fs@^0.1.0",
     "path": "github:jspm/nodelibs-path@^0.1.0"
-  }
+  },
+  "github:socketio/socket.io-client@1.4.6": {}
 }

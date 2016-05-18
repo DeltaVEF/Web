@@ -16,6 +16,7 @@ System.config({
   map: {
     "aurelia-animator-css": "npm:aurelia-animator-css@1.0.0-beta.1.2.1",
     "aurelia-bootstrapper": "npm:aurelia-bootstrapper@1.0.0-beta.1.2.1",
+    "aurelia-event-aggregator": "npm:aurelia-event-aggregator@1.0.0-beta.1.2.1",
     "aurelia-fetch-client": "npm:aurelia-fetch-client@1.0.0-beta.1.2.5",
     "aurelia-framework": "npm:aurelia-framework@1.0.0-beta.1.2.5",
     "aurelia-history-browser": "npm:aurelia-history-browser@1.0.0-beta.1.2.1",
@@ -33,6 +34,7 @@ System.config({
     "font-awesome": "npm:font-awesome@4.6.1",
     "jquery": "npm:jquery@2.2.3",
     "socket.io": "npm:socket.io@1.4.6",
+    "socket.io-client": "github:socketio/socket.io-client@1.4.6",
     "text": "github:systemjs/plugin-text@0.0.4",
     "github:jspm/nodelibs-assert@0.1.0": {
       "assert": "npm:assert@1.3.0"

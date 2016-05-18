@@ -29,6 +29,7 @@ export class App {
 	attached() {
 		//change error message on update
 		this.eventAggregator.subscribe("Error Message", (message) => {
+			this.errorMessage = false;
 			this.errorMessage = message;
 		});
 	}

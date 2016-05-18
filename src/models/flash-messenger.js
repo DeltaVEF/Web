@@ -13,10 +13,6 @@ export class FlashMessenger {
 		this.eventAggregator.publish('Error Message', this.message = message);
 	}
 
-	messageChanged(message) {
-		console.log(message);
-	}
-
 	getMessage() {
 		return this.message;
 	}

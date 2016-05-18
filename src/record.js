@@ -3,7 +3,7 @@ import {HttpClient, json} from "aurelia-fetch-client";
 import {Router} from "aurelia-router";
 import {FlashMessenger} from "models/flash-messenger";
 import "fetch";
-import {io} from "socket.io-client";
+import io from "socket.io-client";
 
 @inject(HttpClient, Router, FlashMessenger)
 export class Record {
@@ -18,14 +18,13 @@ export class Record {
 	restServer = "http://localhost:80";
 	streamServer = "localhost:8080";
 	videoStream;
-	socket;
+	streamSocket;
 
 	//mediaDevices does not seem to be supported yet, at least in the chrome I use
 	getUserMedia = navigator.getUserMedia ||
 		navigator.webkitGetUserMedia ||
 		navigator.mozGetUserMedia ||
 		navigator.msGetUserMedia;
-
 
 	constructor(http, router, flashMessenger) {
 		http.configure(config => {
@@ -54,7 +53,7 @@ export class Record {
 		}).then(
 			response => {
 				var responseObject = response.json();
-				if (response.status != 200 || responseObject.error) {
+				if (response.status != 200 || responseObject.error || !responseObject.data) {
 					this.roomCreationFailed();
 					return;
 				}
@@ -66,6 +65,15 @@ export class Record {
 				this.roomCreationFailed();
 			}
 		);
+
+		var streamSocket = io(this.streamServer);
+		streamSocket.on("connect", () => {
+			this.streamSocket = streamSocket;
+		});
+		streamSocket.on("connect_error", () => {
+			streamSocket.disconnect();
+			this.roomCreationFailed();
+		});
 	}
 
 	attached() {
